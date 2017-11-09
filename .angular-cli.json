@@ -19,9 +19,26 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "assets/fontawesome/css/font-awesome.min.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/tether/dist/css/tether.min.css",
+        "../node_modules/animate.css/animate.css",
+        "assets/css/card.min.css",
+        "assets/css/semantic.css",
+        "assets/css/comment.min.css",
+        "assets/css/shape.min.css",
+        "assets/css/image.min.css",
+        "assets/css/accordion.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/tether/dist/js/tether.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "assets/css/semantic.js",
+        "assets/css/accordion.min.js",
+        "assets/css/shape.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
