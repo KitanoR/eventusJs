@@ -39,4 +39,7 @@ export class ComentariosService {
   eliminarComentario(id: string){
     let comentarioRef = this.db.list('Comentarios').remove(id);
   }
+  editarComentario( comentario: any){
+    let comentarioRef = this.db.list('Comentarios').update(comentario.key, comentario);
+  }
 }

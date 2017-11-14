@@ -3,7 +3,7 @@ import { Comentario } from '../../../interface/comentario.interface';
 import { ComentariosService } from '../../../services/comentarios.service';
 import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+declare const $: any;
 @Component({
   selector: 'app-comentarios',
   templateUrl: './comentarios.component.html',
@@ -13,16 +13,19 @@ export class ComentariosComponent implements OnInit {
   @Input()evento: string;
   comentarios: Observable<Comentario[]>;
   forma: FormGroup;
+  formaEditar: FormGroup;
+  comentarioSeleccionado: Comentario;
   constructor(public _comentarioService: ComentariosService) {
     this.forma = new FormGroup({
       'contenido': new FormControl('', Validators.required)
     });
-
+    this.formaEditar = new FormGroup({
+      'contenido': new FormControl('', Validators.required)
+    });
   }
 
   ngOnInit() {
     this.comentarios = this._comentarioService.getComentarios(this.evento);
-    console.log(this.evento, 'datos de comentarios');
   }
   comentar(){
     let comentario: Comentario;
@@ -36,8 +39,20 @@ export class ComentariosComponent implements OnInit {
 
   }
   eliminarComentario(id: string){
-    //console.log(id, 'id de comentario');
     this.forma.reset({contenido: ''});
     this._comentarioService.eliminarComentario(id);
+  }
+  abrirModalEditar(comentario: Comentario){
+      this.comentarioSeleccionado = comentario;
+      $('#exampleModal').modal();
+      this.formaEditar.setValue({contenido: comentario.contenido});
+  }
+  editarComentario(){
+    this.comentarioSeleccionado.contenido = this.formaEditar.value.contenido;
+    this._comentarioService.editarComentario(this.comentarioSeleccionado);
+    setTimeout(() => {this.cerrarModal()} , 100);
+  }
+  cerrarModal(){
+    $('#exampleModal').modal('hide');
   }
 }
