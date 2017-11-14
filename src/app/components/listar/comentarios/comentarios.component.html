@@ -1,0 +1,46 @@
+<div class="mb-5">
+  <div class="ui minimal comments animated fadeIn col-md-12">
+    <h3 class="ui dividing header">Comentarios</h3>
+      <div class="comment animated fadeIn" *ngFor="let comentario of comentarios | async">
+        <a class="avatar">
+          <img src="https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png">
+        </a>
+        <div class="content">
+          <a class="author">{{comentario.nombre}}</a>
+          <div class="metadata">
+            <span class="date">{{comentario.fecha}}</span>
+          </div>
+          <div class="text">
+            {{comentario.contenido}}
+          </div>
+          <div class="actions">
+            <a class="reply" href="">Eliminar</a>
+          </div>
+        </div>
+      </div>
+
+    <form  [formGroup] = "forma" (ngSubmit) ="comentar()" class="ui reply form">
+
+      <div  class="form-group" id="contenidoEvent2o">
+        <label for="contenidoEvento">Comentario</label>
+
+        <textarea
+          type="text" class="form-control" id="contenidoEvento" placeholder="Nombre del evento"
+          formControlName="contenido" required
+          [ngClass]="{'is-invalid': !forma.controls['contenido'].valid  && forma.controls['contenido'].touched}"
+        ></textarea>
+        <div
+          *ngIf="forma.get('contenido').errors?.required && forma.get('contenido').touched"
+          class="invalid-feedback">
+          El contenido del evento es necesario
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled] = "!forma.valid">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        Comentar
+      </button>
+    </form>
+  </div>
+</div>
+

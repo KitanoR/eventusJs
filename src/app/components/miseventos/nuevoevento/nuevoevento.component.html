@@ -1,0 +1,57 @@
+<app-jumbotron></app-jumbotron>
+<div class="text-center">
+  <h2>Crear evento</h2>
+</div>
+<!-- fin del div de header-->
+<form [formGroup] = "forma" (ngSubmit) ="guardarEvento()">
+  <div  class="form-group" id="nombreEvento">
+    <label for="inputnombre">Nombre</label>
+    <input  type="text" class="form-control" id="inputnombre" placeholder="Nombre del evento"
+            formControlName="nombre" required
+            [ngClass]="{'is-invalid': !forma.controls['nombre'].valid  && forma.controls['nombre'].touched}">
+    <div
+      *ngIf="forma.get('nombre').errors?.required && forma.get('nombre').touched"
+      class="invalid-feedback">
+      El nombre del evento es necesario
+    </div>
+  </div>
+  <!-- fin del nombre del evento-->
+  <div  class="form-group" id="sumarioEvento">
+    <label for="inputsumario">Sumario</label>
+
+    <textarea
+      type="text" class="form-control" id="inputsumario" placeholder="Nombre del evento"
+      formControlName="sumario" required
+      [ngClass]="{'is-invalid': !forma.controls['sumario'].valid  && forma.controls['sumario'].touched}"
+    ></textarea>
+    <div
+      *ngIf="forma.get('sumario').errors?.required && forma.get('sumario').touched"
+      class="invalid-feedback">
+      El sumario del evento es necesario
+    </div>
+  </div>
+  <!-- fin del sumario del evento-->
+  <div  class="form-group" id="contenidoEvent2o">
+    <label for="inputsumario">Contenido</label>
+
+    <textarea
+      type="text" class="form-control" id="contenidoEvento" placeholder="Nombre del evento"
+      formControlName="contenido" required
+      [ngClass]="{'is-invalid': !forma.controls['contenido'].valid  && forma.controls['contenido'].touched}"
+    ></textarea>
+    <div
+      *ngIf="forma.get('contenido').errors?.required && forma.get('contenido').touched"
+      class="invalid-feedback">
+      El contenido del evento es necesario
+    </div>
+  </div>
+  <!-- fin del contenido del evento-->
+  <!-- fin del lugar del evento-->
+  <!-- fin del inicio del evento-->
+  <!-- fin del final del evento-->
+  <!-- fin del gratis del evento-->
+  <!-- fin del precio del evento-->
+
+
+  <!-- **************** fin de la forma -->
+</form>

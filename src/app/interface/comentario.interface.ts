@@ -3,6 +3,10 @@
  */
 export interface Comentario{
   uid?: string;
+  evento?: string;
+  imagen?: string;
+  nombre?: string;
   usuario: string;
   contenido: string;
+  fecha?: any ;
 }

@@ -5,7 +5,7 @@ export interface Usuario{
   uid?: string;
   nombre?: string;
   usuario?: string;
-  correo: string;
-  password: string;
-  foto: string;
+  correo?: string;
+  password?: string;
+  foto?: string;
 }

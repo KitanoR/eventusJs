@@ -2,3 +2,6 @@
 body{
   background-color: #eaedf1 !important;
 }
+.container-fluid{
+ margin-top: 80px;
+}

@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="card ">
+    <div class="card-body" >
+      <div *ngIf="evento">
+        <div class="d-flex justify-content-end">
+          <a href="#" class="btn btn-primary">Participar</a>
+          <a href="#" class="btn btn-primary">Iniciar sesión para participar</a>
+        </div>
+        <div class ="row d-flex justify-content-center">
+          <div class="col-md-4 animated fadeIn">
+            <img class="card-img-top" src="{{evento.imagen}}" alt="Card image cap">
+          </div>
+          <div class="col-md-8 animated fadeIn">
+            <h1 class="h2"> {{evento.nombre}}</h1>
+            <hr>
+            <h2>Sumario:</h2>
+            <p>
+              {{evento.sumario}}
+            </p>
+            <h2>Contenido:</h2>
+            <p>
+              {{evento.contenido}}
+            </p>
+            <h2 class="h2">Precio: </h2>
+            <span class="badge badge-success letrasBage">Gratis</span>
+            <span class="badge badge-info letrasBage">Q.{{evento.precio}}</span>
+            <br>
+            <h2 class="h2">Categoria: </h2><span class="badge badge-secondary letrasBage">{{evento.categoria}}</span>
+            <br>
+            <h2 class="h2">Lugar: </h2>{{evento.lugar}}
+
+            <div class="row col-md-12 mt-2 px-0 mx-0">
+              <div class="col mx-0 px-0">
+                <h2>Inicio</h2>
+                {{evento.inicio}}
+              </div>
+              <div class="col">
+                <h2>Final</h2>
+                {{evento.final}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="idEvento">
+        <app-comentarios [evento]="idEvento" ></app-comentarios>
+      </div>
+
+    </div>
+  </div>
+
+</div>

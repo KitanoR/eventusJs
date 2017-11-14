@@ -12,9 +12,9 @@ export interface Evento{
   lugar: string;
   inicio: any;
   final: any;
-  imagen: string;
+  imagen?: string;
   gratis: boolean;
-  precio: number;
-  vistas: string;
+  precio?: number;
+  vistas?: string;
   organizador: string;
 }
