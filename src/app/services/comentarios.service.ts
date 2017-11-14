@@ -34,8 +34,9 @@ export class ComentariosService {
 
   }
   inserComentario(comentario:any){
-    console.log(comentario, 'Comentario nuevo');
     let comentarioRef = this.db.list('Comentarios').push(comentario);
   }
-
+  eliminarComentario(id: string){
+    let comentarioRef = this.db.list('Comentarios').remove(id);
+  }
 }

@@ -30,7 +30,14 @@ export class ComentariosComponent implements OnInit {
     comentario.evento = this.evento;
     comentario.usuario = '1';
     comentario.fecha = '12/12/2017';
+    this.forma.reset({contenido: ''});
+
     this._comentarioService.inserComentario(comentario);
-    
+
+  }
+  eliminarComentario(id: string){
+    //console.log(id, 'id de comentario');
+    this.forma.reset({contenido: ''});
+    this._comentarioService.eliminarComentario(id);
   }
 }
