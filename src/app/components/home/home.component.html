@@ -1,19 +1,19 @@
 <app-carousel></app-carousel>
 <div *ngIf="items">
 
-  <div *ngFor="let item of items | async" class ="row d-flex justify-content-center mt-3">
-
-    <div class="card mx-2 my-2 animated fadeIn" style="width: 25rem;">
-      <img class="card-img-top" src="{{item.imagen}}" height="180" width="380" alt="Card image cap">
-      <div class="card-body">
-        <h4 class="card-title">{{item.nombre}}</h4>
-        <span class="badge badge-secondary">{{item.categoria}}</span>
-        <span class="badge badge-success">Gratis</span>
-        <span class="badge badge-info">Q.{{item.precio}}</span>
-        <p class="card-text">{{item.sumario}}.</p>
-        <a [routerLink]="['/detalle',item.key]" class="btn btn-primary">Ver más</a>
+  <div  class ="row col-md-12 d-flex justify-content-center mt-3">
+      <div class="card mx-2 my-2 animated fadeIn" *ngFor="let item of items | async" style="width: 25rem;">
+        <img class="card-img-top" src="{{item.imagen}}" height="180" width="380" alt="Card image cap">
+        <div class="card-body">
+          <h4 class="card-title">{{item.nombre}}</h4>
+          <span class="badge badge-secondary">{{item.categoria}}</span>
+          <span class="badge badge-success">Gratis</span>
+          <span class="badge badge-info">Q.{{item.precio}}</span>
+          <p class="card-text">{{item.sumario}}.</p>
+          <a [routerLink]="['/detalle',item.key]" class="btn btn-primary">Ver más</a>
+        </div>
       </div>
-    </div>
+
   </div>
 </div>
 

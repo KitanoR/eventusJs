@@ -1,3 +1,72 @@
-<p>
-  participando works!
-</p>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+      <div class ="row d-flex justify-content-center">
+
+        <div class="col-md-12 text-center">
+          <h1>Mis Próximos eventos</h1>
+        </div>
+        <table class="table">
+          <thead class="thead-default">
+          <tr>
+            <th>Nombre</th>
+            <th>Lugar</th>
+            <th>Inicio</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of eventos | async" class="animated fadeIn">
+            <th >
+              <a class="ui tiny image">
+                <img class="card-img-top" src="{{item.evento.imagen}}" alt="Card image cap">
+              </a>
+              {{item.evento.nombre}}
+            </th>
+            <td>{{item.evento.lugar}}</td>
+            <td>{{item.evento.inicio}}</td>
+            <td>
+              {{item.evento.precio}}
+
+            </td>
+            <td>{{item.evento.categoria}}</td>
+            <td>
+              <a (click)="abrirModal(item.key)" >
+                <i class="fa fa-times fa-3x text-danger" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!eventos" class="alert alert-info text-center" role="alert">
+          No tiene actividades creadas!!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Salir Evento</h5>
+        <button type="button" class="close" (click)="cerrarModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 text-center">
+          <h3>¿Desea salir del evento?</h3>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal()">No</button>
+        <button type="button" class="btn btn-primary" (click)="eliminar()">Si</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,5 +33,7 @@ export class DetalleslistaComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  unirse(){
+    this._eventosService.insertMisPartipaciones(this.evento);
+  }
 }

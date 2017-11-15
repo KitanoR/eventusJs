@@ -14,14 +14,15 @@ export class EventosService {
   constructor(public db: AngularFireDatabase, public http: Http) {
 
   }
-  updateEvento(id: string, evento: Evento){
+  updateEvento( evento: any){
+    console.log(evento, 'edtar')
     let eventoRef = this.db.list('Evento');
-    eventoRef.update(id, evento);
+    eventoRef.update(evento.key, evento);
   }
   insertEvento(evento: Evento){
     let eventRef = this.db.list('Evento').push(evento);
   }
-  ingresarEvento( archivos: FileItem[], evento: Evento ){
+  ingresarEvento( archivos: FileItem[], evento: Evento, editar?: boolean ){
     console.log(archivos);
     let storageRef = firebase.storage().ref();
     for( let item of archivos){
@@ -34,14 +35,21 @@ export class EventosService {
           item.url = uploadTask.snapshot.downloadURL;
           item.estaSubiendo = false;
           evento.imagen = item.url;
-          this.insertEvento(evento);
+          if(editar){
+            this.updateEvento(evento);
+          }
+          else {
+            this.insertEvento(evento);
+          }
         }
       )
       return;
     }
   }
 
-
+  eliminarEvento(evento: any){
+    let eventoRef = this.db.list('Evento').remove(evento.key);
+  }
 
   getDetalleEvento(id:string){
     let url = `${this.eventoUrl}/${id}.json`;
@@ -65,6 +73,53 @@ export class EventosService {
     });
   }
   getTopEventos(){
+
+  }
+  getCategoría(){
+    return this.db.list('Categoria').valueChanges();
+  }
+  getMisEventos(key$: string){
+    return this.db.list(`Evento`).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }).mergeMap((tours:any) => {
+      return Observable.forkJoin(
+        tours.map((tour:any) => this.db
+          .object(`/Usuarios/${tour.organizador}/nombre`).valueChanges().first()
+        ),
+        (...values) => {
+          tours.filter(b => b.organizador == key$).forEach((tour, index) => { tour.Proveedor = values[index];
+          });
+          return tours.filter(b => b.organizador == key$);
+        }
+      );
+    });
+  }
+  getMisPartipaciones(key$: string){
+    return this.db.list(`Participaciones`).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }).mergeMap((tours:any) => {
+      return Observable.forkJoin(
+        tours.map((tour:any) => this.db
+          .object(`/Usuarios/${tour.usuario}/nombre`).valueChanges().first()
+        ),
+        (...values) => {
+          tours.filter(b => b.usuario == key$).forEach((tour, index) => { tour.nombreUsuario = values[index];
+          });
+          return tours.filter(b => b.usuario == key$);
+        }
+      );
+    });
+  }
+  insertMisPartipaciones(evento:any){
+    let usuario: any = JSON.parse(localStorage.getItem('usuario'));
+    let data = {
+      usuario: usuario.uid,
+      evento: evento
+    }
+    let participaciones = this.db.list('Participaciones').push(data);
+  }
+  salirParticipacion(id){
+    this.db.list('Participaciones').remove(id);
 
   }
 

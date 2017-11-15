@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy , NgZone} from '@angular/core';
+import { Component, OnInit , NgZone} from '@angular/core';
 import { Usuario } from '../../../interface/usuario.interface';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService} from '../../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -9,43 +9,87 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  forma: FormGroup; //El formulario
-  usuario: Usuario = {
-    correo: '',
-    password: ''
-  };
+export class LoginComponent implements OnInit {
+  userForm: FormGroup;
+  newUser: boolean = true; // to toggle login or signup form
+  passReset: boolean = false;
 
-  noExiste: boolean = false;
-  loading:boolean = false;
-  loadingGoogle: boolean = false;
-  loadingFacebook: boolean = false;
-  incorrecto:boolean = false;
-  estado:number = -1;
-  imagenUsuario: string = "";
-  constructor(private  _usuarioService: AuthService, private router: Router, private zone: NgZone) {
-    //Inicialización del formulario
-    this.forma = new FormGroup({
-      'correo': new FormControl(''),
-      'password': new FormControl('', [Validators.required, Validators.minLength(5)])
-    });
-    // Fin Inicialización formulario
-
-    // Seteo de Validators Correo
-    this.forma.controls['correo'].setValidators([
-      Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
-    ]);
-    //  Fin Seteo de Validators Correo
-  }
-
-  /*******************************Fin Constructor*************************************************/
+  constructor(private fb: FormBuilder, private auth: AuthService, public router: Router) { }
 
   ngOnInit() {
+    this.buildForm();
 
   }
-  ngOnDestroy(){
+
+
+  toggleForm(): void {
+    this.newUser = !this.newUser;
   }
+  signup(): void {
+    let data = this.userForm.value
+    this.auth.emailSignUp(data.email, data.password);
+  }
+  login(): void {
+    let data = this.userForm.value
+    this.auth.emailLogin(data.email, data.password)
+      .then(() => {
+        this.router.navigate(['/miseventos']);
+        window.location.reload();
+      });
+  }
+  resetPassword() {
+    this.auth.resetPassword(this.userForm.value['email'])
+      .then(() => this.passReset = true)
+  }
+  buildForm(): void {
+    this.userForm = this.fb.group({
+      'email': ['', [
+        Validators.required,
+        Validators.email
+      ]
+      ],
+      'password': ['', [
+        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+        Validators.minLength(6),
+        Validators.maxLength(25)
+      ]
+      ],
+    });
+    this.userForm.valueChanges.subscribe(data => this.onValueChanged(data));
+    this.onValueChanged(); // reset validation messages
+  }
+  // Updates validation state on form changes.
+  onValueChanged(data?: any) {
+    if (!this.userForm) { return; }
+    const form = this.userForm;
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+  formErrors = {
+    'email': '',
+    'password': ''
+  };
+  validationMessages = {
+    'email': {
+      'required':      'Correo es requerido.',
+      'email':         'Debe ser un correo válido'
+    },
+    'password': {
+      'required':      'La contraseña es requerida.',
+      'pattern':       'Debe tener al menos una letra y un número.',
+      'minlength':     'Debe tener más de 4 letras.',
+      'maxlength':     'No debe ser menor de 40 letras.',
+    }
+  };
 
   /************************************* Métodos ************************************************/
 

@@ -1,93 +1,31 @@
 
-<div class="text-center">
-  <h2>
-    Iniciar Sesión
-  </h2>
-
-  <div class="form-group text-danger" *ngIf="incorrecto">
-    <label class="text-center form-control-label">
-      Usuario o contraseña incorrectos
-    </label>
-  </div>
-  <div class="form-group text-danger" *ngIf="getEstado() !=-1">
-    <label class="text-center form-control-label" *ngIf="estado == 1">
-      Este usuario no existe en el sistema. ¡Regístrate!
-    </label>
-    <label class="text-center form-control-label" *ngIf="estado == 2">
-      A ocurrido un error, por favor intente más tarde
-    </label>
-  </div>
-  <!--Fin div usuario incorrecto-->
+<form [formGroup]="userForm"    (ngSubmit)="login()">
+  <h3>Iniciar sesión</h3>
   <hr>
-</div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email"
+           id="email"
+           class="form-control"
+           [ngClass]="{'is-invalid': !userForm.controls['email'].valid  && userForm.controls['email'].touched}"
+           formControlName="email" required >
+    <div *ngIf="formErrors.email" class="text-danger">
+      {{ formErrors.email }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password"
+           id="password"
+           class="form-control"
+           [ngClass]="{'is-invalid': !userForm.controls['password'].valid  && userForm.controls['password'].touched}"
+           formControlName="password" required >
+    <div *ngIf="formErrors.password" class="text-danger">
+      {{ formErrors.password }}
+    </div>
+  </div>
 
-<div class="col-md-12">
-  <form [formGroup]="forma"
-        type="post"
-        enctype= "multipart/form-data"
-        (ngSubmit)="Login()"
-  >
-    <div  class="form-group" id="ControlCorreo">
-      <label for="formGroupLogin">Correo Electrónico</label>
-      <input  type="email" class="form-control" id="formGroupLogin" placeholder="Correo Electrónico"
-              formControlName="correo" required
-              [ngClass]="{'is-invalid': !forma.controls['correo'].valid  && forma.controls['correo'].touched}">
-      <div
-        *ngIf="forma.get('correo').errors?.required && forma.get('correo').touched"
-        class="invalid-feedback">
-        El correo es necesario
-      </div>
-      <div
-        *ngIf="forma.get('correo').errors?.pattern && forma.get('correo').touched"
-        class="invalid-feedback">
-        Este campo no tiene un formato válido.
-      </div>
-    </div>
-    <!--Fin Correo-->
-    <div  class="form-group">
-      <label for="formGroupLogin">Contraseña</label>
-      <input type="password" class="form-control" id="formGroupLogin" placeholder="Contraseña"
-             formControlName="password"
-             [ngClass]="{'is-invalid': !forma.controls['password'].valid  && forma.controls['password'].touched}">
-      <div
-        *ngIf="forma.get('password').errors?.required && forma.get('password').touched"
-        class="invalid-feedback">
-        La contraseña es necesaria
+  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Iniciar Sesión</button>
 
-      </div>
-      <div
-        *ngIf="forma.get('password').errors?.minlength?.requiredLength && forma.get('password').touched"
-        class="invalid-feedback">
-        La constraseña debe ser mayor a 5 caracteres
-      </div>
-    </div>
-    <!--Fin Contraseña-->
-    <div class="form-group text-center">
-      <a [routerLink]="['/landing/reestablecer']" class="text-center">¿Olvidaste tu contraseña?</a>
-    </div>
-    <!--Fin link Olvidaste..-->
-    <div class="form-group">
-      <button  type="submit" [disabled] = "!forma.valid || loading" class="btn btn-primary text-center btn-block">
-        <i class="fa" [ngClass]="{'fa-sign-in':!loading,'fa-spinner fa-pulse':loading}"></i>
-        <span *ngIf="!loading"> Iniciar Sesión</span>
-        <span *ngIf="loading"> Espere por favor</span>
-      </button>
-    </div>
-    <!--Fin  btn Iniciar Sesión-->
-    <div class="or-line">
-      <p class="or_line">
-        <span class="or_text">o</span>
-      </p>
-    </div>
-    <!--Fin div or-line-->
+</form>
 
-    <!--Fin div Social-->
-    <!--Fin or-line 2-->
-    <div class="form-group text-center">
-      <a class="text-center" [routerLink]="['/landing/registro']">Crea una nueva cuenta</a>
-    </div>
-    <!--Fin link crear cuenta-->
-  </form>
-  <!--Fin del form-->
-</div>
-<!--Fin Div-->

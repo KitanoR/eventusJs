@@ -28,10 +28,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 // Services
 import { AuthService } from './services/auth.service';
+import { CanguardService } from './services/canguard.service';
 import { CanactivateService } from './services/canactivate.service';
 import { ComentariosService } from './services/comentarios.service';
 import { EventosService } from './services/eventos.service';
 import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
+import { EditareventoComponent } from './components/miseventos/editarevento/editarevento.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,8 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     RegistroComponent,
     JumbotronComponent,
     UsuariosComponent,
-    NgDropFilesDirective
+    NgDropFilesDirective,
+    EditareventoComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { NgDropFilesDirective } from './directives/ng-drop-files.directive';
     AuthService,
     CanactivateService,
     EventosService,
-    ComentariosService
+    ComentariosService,
+    CanguardService
   ],
   bootstrap: [AppComponent]
 })

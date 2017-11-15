@@ -1,57 +1,207 @@
 <app-jumbotron></app-jumbotron>
-<div class="text-center">
-  <h2>Crear evento</h2>
+
+<div class="container-fluid">
+  <div class="card ">
+    <div class="card-body" >
+      <div class="text-center">
+        <h2>Crear evento</h2>
+      </div>
+      <div class="row col-md-12">
+        <div class="col-md-6">
+          <!-- fin del div de header-->
+          <form [formGroup] = "forma" (ngSubmit) ="guardarEvento()">
+            <div  class="form-group" id="nombreEvento">
+              <label for="inputnombre">Nombre</label>
+              <input  type="text" class="form-control" id="inputnombre" placeholder="Nombre del evento"
+                      formControlName="nombre" required
+                      [ngClass]="{'is-invalid': !forma.controls['nombre'].valid  && forma.controls['nombre'].touched}">
+              <div
+                *ngIf="forma.get('nombre').errors?.required && forma.get('nombre').touched"
+                class="invalid-feedback">
+                El nombre del evento es necesario
+              </div>
+            </div>
+            <!-- fin del nombre del evento-->
+            <div  class="form-group" id="sumarioEvento">
+              <label for="inputsumario">Sumario</label>
+
+              <textarea
+                type="text" class="form-control" id="inputsumario" placeholder="Nombre del evento"
+                formControlName="sumario" required
+                [ngClass]="{'is-invalid': !forma.controls['sumario'].valid  && forma.controls['sumario'].touched}"
+              ></textarea>
+              <div
+                *ngIf="forma.get('sumario').errors?.required && forma.get('sumario').touched"
+                class="invalid-feedback">
+                El sumario del evento es necesario
+              </div>
+            </div>
+            <!-- fin del sumario del evento-->
+            <div  class="form-group" id="contenidoEvent2o">
+              <label for="inputsumario">Contenido</label>
+
+              <textarea
+                type="text" class="form-control" id="contenidoEvento" placeholder="Nombre del evento"
+                formControlName="contenido" required
+                [ngClass]="{'is-invalid': !forma.controls['contenido'].valid  && forma.controls['contenido'].touched}"
+              ></textarea>
+              <div
+                *ngIf="forma.get('contenido').errors?.required && forma.get('contenido').touched"
+                class="invalid-feedback">
+                El contenido del evento es necesario
+              </div>
+            </div>
+            <!-- fin del contenido del evento-->
+
+            <div class="row col-md-12 px-0">
+              <div  class="form-group col-md-6" id="lugarEvento">
+                <label for="inputLugar">Lugar</label>
+                <input  type="text" class="form-control" id="inputLugar" placeholder="Lugar del evento.."
+                        formControlName="lugar" required
+                        [ngClass]="{'is-invalid': !forma.controls['lugar'].valid  && forma.controls['lugar'].touched}">
+                <div
+                  *ngIf="forma.get('lugar').errors?.required && forma.get('lugar').touched"
+                  class="invalid-feedback">
+                  El lugar del evento es necesario
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Categoría</label>
+                <select class="form-control" formControlName="categoria">
+                  <option [value] = "item.nombre"
+                    *ngFor="let item of categorias | async">
+                    {{item.nombre}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+
+
+
+
+
+            <div class="row col-md-12 px-0">
+              <div  class="form-group col" id="fechaincio">
+                <label for="inputinicio">Fecha inicio</label>
+                <input  type="date" class="form-control" id="inputinicio" placeholder="Inicio del evento.."
+                        formControlName="inicio" required
+                        [ngClass]="{'is-invalid': !forma.controls['inicio'].valid  && forma.controls['inicio'].touched}">
+                <div
+                  *ngIf="forma.get('inicio').errors?.required && forma.get('inicio').touched"
+                  class="invalid-feedback">
+                  Fecha de inicio
+                </div>
+              </div>
+              <!-- fin del lugar del evento-->
+              <div  class="form-group col" id="fechafinal">
+                <label for="inputfinal">Fecha final</label>
+                <input  type="date" class="form-control" id="inputfinal" placeholder="Lugar del evento.."
+                        formControlName="final" required
+                        [ngClass]="{'is-invalid': !forma.controls['final'].valid  && forma.controls['final'].touched}">
+                <div
+                  *ngIf="forma.get('final').errors?.required && forma.get('final').touched"
+                  class="invalid-feedback">
+                  Fecha final
+                </div>
+              </div>
+              <!-- fin del inicio del evento-->
+            </div>
+            <!-- fin de la columna -->
+            <div class="row col-md-12 px-0">
+              <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                  <input
+                    name="acepta"
+                    type="checkbox"
+                    formControlName="gratis"
+                    class="custom-control-input" required>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Evento Gratis</span>
+                </label>
+              </div>
+
+              <!-- fin del gratis del evento-->
+              <div  class="form-group col" id="precioEvento">
+                <label for="inputPrecio">Precio</label>
+                <input  type="text" class="form-control" id="inputPrecio" placeholder="Nombre del evento"
+                        formControlName="precio"
+                        [ngClass]="{'is-invalid': !forma.controls['precio'].valid  && forma.controls['precio'].touched}">
+                <div
+                  *ngIf="forma.get('precio').errors?.required && forma.get('precio').touched"
+                  class="invalid-feedback">
+                  El Precio del evento es necesario
+                </div>
+                <div
+                  *ngIf="forma.get('precio').errors?.pattern && forma.get('precio').touched"
+                  class="invalid-feedback">
+                  Solo números.
+                </div>
+              </div>
+              <!-- fin del precio del evento-->
+            </div>
+
+            <div class="row col-md-12 d-flex justify-content-center">
+              <button type="submit"class="btn btn-primary" [disabled] =" !forma.valid || archivos.length == 0 || !permiteCargar" >Guardar</button>
+              <button type="button" class="btn btn-danger ml-2">Cancelar</button>
+            </div>
+            <!-- **************** fin de la forma -->
+          </form>
+        </div>
+        <div class="col-md-6">
+
+
+          <div appNgDropFiles
+               [ngClass]="{'file-over': estaSobreDropZone}"
+               (archivosSobre) ="archivoSobreDropZone($event)"
+               [archivos]="archivos"
+               class="well drop-zone">
+            <h4>Suelta lo archivos aquí</h4>
+
+            <img src="../../../../assets/drop-images.png"/>
+
+          </div>
+
+          <div class="col-md-8 mt-3" style="margin-bottom: 40px">
+            <h4 *ngIf="archivos.length > 0" >Cargar Archivos</h4>
+
+
+            <table class="table" *ngIf="archivos.length > 0">
+              <thead class="thead-inverse">
+              <tr>
+                <th>Nombre</th>
+                <th>Tamaño</th>
+                <th>Progreso</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of archivos">
+                <td [ngClass]="{'text-green': item.estaSubiendo}">
+                  <strong> {{ item.archivo?.name }}</strong>
+                </td>
+                <td>{{ item.archivo.size / 1024 / 1024 | number:'.2' }} MB</td>
+                <td>
+                  <div class="progress" style="margin-bottom: 0px;" >
+                    <div  class="progress-bar" role="progressbar" [ngStyle]="{'width': item.progreso+ '%'}" >
+
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+
+
+        </div><!-- fin de la columno derecha -->
+      </div><!-- fin del row,  -->
+
+
+    </div>
+  </div>
 </div>
-<!-- fin del div de header-->
-<form [formGroup] = "forma" (ngSubmit) ="guardarEvento()">
-  <div  class="form-group" id="nombreEvento">
-    <label for="inputnombre">Nombre</label>
-    <input  type="text" class="form-control" id="inputnombre" placeholder="Nombre del evento"
-            formControlName="nombre" required
-            [ngClass]="{'is-invalid': !forma.controls['nombre'].valid  && forma.controls['nombre'].touched}">
-    <div
-      *ngIf="forma.get('nombre').errors?.required && forma.get('nombre').touched"
-      class="invalid-feedback">
-      El nombre del evento es necesario
-    </div>
-  </div>
-  <!-- fin del nombre del evento-->
-  <div  class="form-group" id="sumarioEvento">
-    <label for="inputsumario">Sumario</label>
-
-    <textarea
-      type="text" class="form-control" id="inputsumario" placeholder="Nombre del evento"
-      formControlName="sumario" required
-      [ngClass]="{'is-invalid': !forma.controls['sumario'].valid  && forma.controls['sumario'].touched}"
-    ></textarea>
-    <div
-      *ngIf="forma.get('sumario').errors?.required && forma.get('sumario').touched"
-      class="invalid-feedback">
-      El sumario del evento es necesario
-    </div>
-  </div>
-  <!-- fin del sumario del evento-->
-  <div  class="form-group" id="contenidoEvent2o">
-    <label for="inputsumario">Contenido</label>
-
-    <textarea
-      type="text" class="form-control" id="contenidoEvento" placeholder="Nombre del evento"
-      formControlName="contenido" required
-      [ngClass]="{'is-invalid': !forma.controls['contenido'].valid  && forma.controls['contenido'].touched}"
-    ></textarea>
-    <div
-      *ngIf="forma.get('contenido').errors?.required && forma.get('contenido').touched"
-      class="invalid-feedback">
-      El contenido del evento es necesario
-    </div>
-  </div>
-  <!-- fin del contenido del evento-->
-  <!-- fin del lugar del evento-->
-  <!-- fin del inicio del evento-->
-  <!-- fin del final del evento-->
-  <!-- fin del gratis del evento-->
-  <!-- fin del precio del evento-->
 
 
-  <!-- **************** fin de la forma -->
-</form>
