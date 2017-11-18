@@ -4,8 +4,8 @@
 
       <div *ngIf="evento">
         <div class="d-flex justify-content-end">
-          <a (click)="unirse()" class="btn btn-primary">Participar</a>
-          <a href="#" class="btn btn-primary">Iniciar sesión para participar</a>
+          <a (click)="unirse()" *ngIf="logueado"  class="btn btn-primary text-white">Participar</a>
+          <a *ngIf="!logueado" class="btn btn-primary text-white">Iniciar sesión para participar</a>
         </div>
         <div class ="row d-flex justify-content-center">
           <div class="col-md-4 animated fadeIn">

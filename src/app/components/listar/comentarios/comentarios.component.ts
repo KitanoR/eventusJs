@@ -3,6 +3,8 @@ import { Comentario } from '../../../interface/comentario.interface';
 import { ComentariosService } from '../../../services/comentarios.service';
 import {Observable} from 'rxjs/Observable';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CanguardService } from '../../../services/canguard.service';
+
 declare const $: any;
 @Component({
   selector: 'app-comentarios',
@@ -15,7 +17,9 @@ export class ComentariosComponent implements OnInit {
   forma: FormGroup;
   formaEditar: FormGroup;
   comentarioSeleccionado: Comentario;
-  constructor(public _comentarioService: ComentariosService) {
+  logueado: boolean = false;
+  constructor(public _comentarioService: ComentariosService , public guard: CanguardService) {
+    this.logueado = this.guard.isLoggedIn();
     this.forma = new FormGroup({
       'contenido': new FormControl('', Validators.required)
     });
@@ -34,7 +38,6 @@ export class ComentariosComponent implements OnInit {
     comentario.usuario = '1';
     comentario.fecha = '12/12/2017';
     this.forma.reset({contenido: ''});
-
     this._comentarioService.inserComentario(comentario);
 
   }

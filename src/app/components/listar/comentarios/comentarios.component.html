@@ -20,7 +20,7 @@
         </div>
       </div>
 
-    <form  [formGroup] = "forma" (ngSubmit) ="comentar()" class="ui reply form">
+    <form  [formGroup] = "forma" (ngSubmit) ="comentar()" *ngIf="logueado" class="ui reply form">
 
       <div  class="form-group" id="contenidoEvent2o">
         <label for="contenidoEvento">Comentario</label>
