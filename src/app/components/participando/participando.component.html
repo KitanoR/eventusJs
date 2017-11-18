@@ -23,7 +23,7 @@
               <a class="ui tiny image">
                 <img class="card-img-top" src="{{item.evento.imagen}}" alt="Card image cap">
               </a>
-              {{item.evento.nombre}}
+             <a [routerLink]="['/detalle',item.evento.key]">{{item.evento.nombre}}</a>
             </th>
             <td>{{item.evento.lugar}}</td>
             <td>{{item.evento.inicio}}</td>

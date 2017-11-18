@@ -118,7 +118,7 @@
                       name="acepta"
                       type="checkbox"
                       formControlName="gratis"
-                      class="custom-control-input" required>
+                      class="custom-control-input" >
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">Evento Gratis</span>
                   </label>
@@ -230,4 +230,22 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalGuardar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Guardando...</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 text-center">
 
+          <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

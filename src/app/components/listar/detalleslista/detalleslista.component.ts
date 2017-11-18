@@ -7,7 +7,7 @@ import { EventosService } from '../../../services/eventos.service';
 import { CanguardService } from '../../../services/canguard.service';
 import { ComentariosService } from '../../../services/comentarios.service';
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
-
+declare const $:any;
 @Component({
   selector: 'app-detalleslista',
   templateUrl: './detalleslista.component.html',
@@ -39,6 +39,11 @@ export class DetalleslistaComponent implements OnInit {
   ngOnInit() {
   }
   unirse(){
+    $('#modalGuardar').modal();
     this._eventosService.insertMisPartipaciones(this.evento);
+    setTimeout(() => {
+      $('#modalGuardar').modal('hide');
+      this.router.navigate(['/participando']);
+    },2000);
   }
 }

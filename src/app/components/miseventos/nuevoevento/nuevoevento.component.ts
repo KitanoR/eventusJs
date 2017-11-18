@@ -4,7 +4,9 @@ import { Evento } from '../../../interface/evento.interface';
 import { EventosService } from '../../../services/eventos.service';
 import { FileItem } from '../../../models/fire-item';
 import { Observable } from 'rxjs/observable';
-import {Usuario} from "../../../interface/usuario.interface";
+import {Usuario} from '../../../interface/usuario.interface';
+
+declare const $: any;
 @Component({
   selector: 'app-nuevoevento',
   templateUrl: './nuevoevento.component.html',
@@ -39,6 +41,7 @@ export class NuevoeventoComponent implements OnInit {
   ngOnInit() {
   }
   guardarEvento(){
+    $('#modalGuardar').modal();
     let usuario: any;
     usuario = JSON.parse(localStorage.getItem('usuario')) ;
     this.permiteCargar = false;

@@ -10,13 +10,19 @@ import { DetalleslistaComponent } from './components/listar/detalleslista/detall
 import { NuevoeventoComponent } from './components/miseventos/nuevoevento/nuevoevento.component';
 import { EditareventoComponent } from './components/miseventos/editarevento/editarevento.component';
 import { RegistroComponent } from './components/usuarios/registro/registro.component';
+import { CanactivateService } from './services/canactivate.service';
+
 const app_routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'miseventos', component: MiseventosComponent },
-  { path: 'participando', component: ParticipandoComponent },
+  { path: 'miseventos', component: MiseventosComponent,
+  canActivate: [CanactivateService]},
+  { path: 'participando', component: ParticipandoComponent,
+  canActivate: [CanactivateService]},
   { path: 'detalle/:id', component: DetalleslistaComponent },
-  { path: 'nuevo', component: NuevoeventoComponent },
-  { path: 'editarevento/:id', component: EditareventoComponent },
+  { path: 'nuevo', component: NuevoeventoComponent,
+  canActivate: [CanactivateService]},
+  { path: 'editarevento/:id', component: EditareventoComponent,
+  canActivate: [CanactivateService]},
   { path: 'registro', component: RegistroComponent },
   { path: '**' , pathMatch: 'full' , redirectTo: 'home'}
 ];

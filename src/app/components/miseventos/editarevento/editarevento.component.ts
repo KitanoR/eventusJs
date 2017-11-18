@@ -5,6 +5,8 @@ import { EventosService } from '../../../services/eventos.service';
 import { FileItem } from '../../../models/fire-item';
 import { Observable } from 'rxjs/observable';
 import { ActivatedRoute, Router } from '@angular/router';
+
+declare const $:any;
 @Component({
   selector: 'app-editarevento',
   templateUrl: './editarevento.component.html',
@@ -63,6 +65,7 @@ export class EditareventoComponent implements OnInit {
   ngOnInit() {
   }
   editarEvento(){
+    $('#modalGuardar').modal();
     let evento: any;
     evento = this.forma.value;
     evento.key =  this.idEvento;

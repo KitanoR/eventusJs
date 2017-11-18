@@ -8,14 +8,14 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav mr-auto">
-      <a class="nav-item nav-link active" href="#" routerLinkActive>Inicio </a>
-      <a *ngIf="logueado" class="nav-item nav-link" [routerLink]="['participando']" routerLinkActive>Próximos eventos</a>
-      <a *ngIf="logueado" class="nav-item nav-link" [routerLink]="['miseventos']" routerLinkActive="">Mis eventos</a>
+      <a class="nav-item nav-link active" [routerLink]="['/home']" routerLinkActive>Inicio </a>
+      <a *ngIf="logueado" class="nav-item nav-link" [routerLink]="['/participando']" routerLinkActive>Próximos eventos</a>
+      <a *ngIf="logueado" class="nav-item nav-link" [routerLink]="['/miseventos']" routerLinkActive="">Mis eventos</a>
     </div>
   </div>
   <div>
     <ul class="navbar-nav">
-      <a *ngIf="!logueado" class="nav-item nav-link text-white " data-toggle="modal" data-target="#exampleModal">LogIn </a>
+      <a *ngIf="!logueado" class="nav-item nav-link text-white " data-toggle="modal" data-target="#modallogin">LogIn </a>
       <a *ngIf="!logueado" class="nav-item nav-link" [routerLink]="['registro']">Registrarse</a>
       <a *ngIf="logueado" class="nav-item nav-link" (click)="cerrarSesion()" href="#">Salir</a>
     </ul>
@@ -24,7 +24,7 @@
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modallogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

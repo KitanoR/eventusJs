@@ -6,21 +6,32 @@ import { Evento } from '../interface/evento.interface';
 import {Http, Headers} from '@angular/http';
 import { FileItem } from '../models/fire-item';
 import * as firebase from 'firebase';
-
+import { Router } from '@angular/router';
+declare const $: any;
 @Injectable()
 export class EventosService {
   eventoUrl: string = 'https://heroesapp-2cd04.firebaseio.com/Evento';
   private CarpetaImagenes:string = 'img';
-  constructor(public db: AngularFireDatabase, public http: Http) {
+  constructor(public db: AngularFireDatabase, public http: Http, public router: Router) {
 
   }
   updateEvento( evento: any){
     console.log(evento, 'edtar')
     let eventoRef = this.db.list('Evento');
     eventoRef.update(evento.key, evento);
+    setTimeout(() => {
+      $('#modalGuardar').modal('hide');
+      $('.modal-backdrop').fadeOut("fast");
+      this.router.navigate(['/miseventos']);
+    },1500);
+
   }
   insertEvento(evento: Evento){
     let eventRef = this.db.list('Evento').push(evento);
+    setTimeout(() => {
+      $('#modalGuardar').modal('hide');
+      this.router.navigate(['/miseventos']);
+    },200);
   }
   ingresarEvento( archivos: FileItem[], evento: Evento, editar?: boolean ){
     console.log(archivos);

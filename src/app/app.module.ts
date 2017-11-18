@@ -21,7 +21,7 @@ import { JumbotronComponent } from './components/shared/jumbotron/jumbotron.comp
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 // configuración firebase
-import { environment } from '../environments/environment';
+import { Firebase } from './models/firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -58,7 +58,7 @@ import { EditareventoComponent } from './components/miseventos/editarevento/edit
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(Firebase.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule,
     AngularFireDatabaseModule,
